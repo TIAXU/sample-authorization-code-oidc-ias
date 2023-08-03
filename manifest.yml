@@ -1,0 +1,32 @@
+---
+applications:
+  - name: backendapp-tia
+    path: backend
+    memory: 64M
+    routes:
+    - route: backendapp-tia.cfapps.eu12.hana.ondemand.com
+    services:
+    - name: clicreIas
+  - name: frontendapp-tia
+    path: frontend
+    memory: 64M
+    routes:
+    - route: frontendapp-tia.cfapps.eu12.hana.ondemand.com
+    services:
+    - name: clicreIas
+  - name: approuter-tia
+    path: approuter
+    memory: 128M
+    routes: 
+    - route: approuter-tia.cfapps.eu12.hana.ondemand.com
+    env:
+      destinations: >
+        [
+          {
+            "name":"myapp",
+            "url":"https://backendapp-tia.cfapps.eu12.hana.ondemand.com",
+            "forwardAuthToken": true
+          }
+        ]
+    services:
+    - name: clicreIas
